@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Photos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .image-card {
+            flex-basis: calc(33.33% - 20px); /* Three images per row, minus margin */
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(247, 148, 30, 0.1);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .score {
+            margin-top: 20px;
+            font-size: 28px;
+            color: #333;
+        }
+
+        .number {
+            color: #F7941E;
+            font-weight: bold;
+        }
+
+        .logo {
+            display: block;
+            max-width: 200px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+
+        @media (max-width: 800px) {
+            .image-card {
+                flex-basis: calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .image-card {
+                flex-basis: calc(100% - 20px);
+            }
+        }
+    </style>
+</head>
+<body>
+<img class="logo" src="{{ url_for('static', filename='/logo.png') }}" alt="">
+
+<h1>Best photos from your video!</h1>
+
+<div class="container">
+    {% for image in images %}
+    <div class="image-card">
+        <img src="data:image/jpeg;base64,{{ image }}">
+    </div>
+    {% endfor %}
+</div>
+
+<div class="score">
+    Average Score: <span class="number">{{ "%.2f"|format(average_score) }}</span>
+</div>
+</body>
+</html>
